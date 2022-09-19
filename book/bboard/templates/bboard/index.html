@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html>
    <head>
-      <meta charset="UTF-8">
-      <title>Главная : : объявления в продаже</title>
+      <meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
+      <title>Две лопаты store</title>
    </head>
    <body>
       <h1>Ассортимент</h1>
-      { % for bb in bbs % } <!--начало шаблонизатора-->
+      {% for bb in bbs %} <!--начало шаблонизатора-->
       <div>
          <h2>{ { bb.title } }</h2>
          <p>{ { bb.content } }</p>
