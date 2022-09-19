@@ -8,9 +8,9 @@
       <h1>Ассортимент</h1>
       {% for bb in bbs %} <!--начало шаблонизатора-->
       <div>
-         <h2>{ { bb.title } }</h2>
-         <p>{ { bb.content } }</p>
-         <p>{ { bb.published | date:"d.m.Y H:i:s" } }</p>
+         <h2>{{bb.title}}</h2>
+         <p>{{bb.content}}</p>
+         <p>{{bb.published | date:"d.m.Y H:i:s"}}</p>
       </div>
       {% endfor %} <!--конец шаблонизатора-->
    </body>
