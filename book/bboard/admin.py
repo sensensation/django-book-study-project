@@ -7,3 +7,6 @@ admin.site.register(Bb)
 from .models import Rubric
 admin.site.register(Rubric)
 
+class BbAdmin(admin.ModelAdmin):
+   list_display = ('title', 'content', 'published', 'rubric')
+

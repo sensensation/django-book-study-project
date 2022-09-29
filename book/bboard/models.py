@@ -23,6 +23,10 @@ class Bb(models.Model):
 
 class Rubric(models.Model):
     name = models.CharField(max_length=20, verbose_name="Название", db_index=True)
+    
+    #метод, позволяющий видеть название рубрики в Django admin
+    def __str__(self):
+        return self.name
 
     class Meta:
         verbose_name_plural = "Рубрики"
