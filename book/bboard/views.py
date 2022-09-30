@@ -1,5 +1,8 @@
-from .models import Bb
+from django.views.generic.edit import CreateView
 from django.shortcuts import render
+from .forms import BbForm
+from .models import Bb, Rubric
+
 
 
 def index(request):
@@ -11,7 +14,7 @@ def index(request):
     return render(request, "bboard/index.html", context)
 
 
-from .models import Rubric
+
 
 
 def by_rubric(request, rubric_id):
@@ -21,3 +24,18 @@ def by_rubric(request, rubric_id):
     context = {"bbs": bbs, "rubrics": rubrics, "current_rubric": current_rubric}
 
     return render(request, "bboard/by_rubric.html", context)
+
+#класс-контроллер
+class BbCreateView(CreateView):
+    template_name = 'bboard/create.html'
+    from_class = BbForm
+    success_url = '/bboard/'
+    #дронов обманул, вот этой частички кода не хватало для корректной работы
+    model = Bb
+    fields = ('title','content','price','rubric')
+    #################
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['rubrics'] = Rubric.objects.all()
+        return context
