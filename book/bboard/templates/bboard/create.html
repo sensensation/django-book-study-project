@@ -8,6 +8,8 @@
       <h1>Добавление объявления</h1>
       <div>
          <a href="{% url 'index' %}">Главная</a>
+         <br />
+         <br />
          {% for rubric in rubrics %}
          <a href="{% url 'by_rubric' rubric.pk %}">{{ rubric.name }}</a>
          {% endfor %}

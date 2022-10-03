@@ -2,8 +2,7 @@ from django.views.generic.edit import CreateView
 from django.shortcuts import render
 from .forms import BbForm
 from .models import Bb, Rubric
-
-
+from django.urls import reverse_lazy
 
 def index(request):
     # bbs = Bb.objects.order_by("-published")
@@ -12,10 +11,6 @@ def index(request):
     rubrics = Rubric.objects.all()
     context = {"bbs":bbs, "rubrics": rubrics}
     return render(request, "bboard/index.html", context)
-
-
-
-
 
 def by_rubric(request, rubric_id):
     bbs = Bb.objects.filter(rubric=rubric_id)
@@ -29,11 +24,12 @@ def by_rubric(request, rubric_id):
 class BbCreateView(CreateView):
     template_name = 'bboard/create.html'
     from_class = BbForm
-    success_url = '/bboard/'
+    success_url = reverse_lazy('index')
     #дронов обманул, вот этой частички кода не хватало для корректной работы
+    # \/ \/ \/
     model = Bb
     fields = ('title','content','price','rubric')
-    #################
+    # /\ /\ /\
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
