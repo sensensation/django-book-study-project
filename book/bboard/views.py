@@ -4,9 +4,18 @@ from .forms import BbForm
 from .models import Bb, Rubric
 from django.urls import reverse_lazy
 
+#класс-контроллер
+class BbCreateView(CreateView):
+    template_name = 'bboard/create.html'
+    form_class = BbForm
+    success_url = reverse_lazy('index')
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['rubrics'] = Rubric.objects.all()
+        return context
+
 def index(request):
-    # bbs = Bb.objects.order_by("-published")
-    # return render(request, "bboard/index.html", {"bbs": bbs})
     bbs = Bb.objects.all()
     rubrics = Rubric.objects.all()
     context = {"bbs":bbs, "rubrics": rubrics}
@@ -20,18 +29,4 @@ def by_rubric(request, rubric_id):
 
     return render(request, "bboard/by_rubric.html", context)
 
-#класс-контроллер
-class BbCreateView(CreateView):
-    template_name = 'bboard/create.html'
-    from_class = BbForm
-    success_url = reverse_lazy('index')
-    #дронов обманул, вот этой частички кода не хватало для корректной работы
-    # \/ \/ \/
-    model = Bb
-    fields = ('title','content','price','rubric')
-    # /\ /\ /\
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['rubrics'] = Rubric.objects.all()
-        return context
+    
